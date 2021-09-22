@@ -1,0 +1,49 @@
+GET http://localhost:8000/adidass HTTP/1.1
+
+###
+POST http://localhost:8000/adidass HTTP/1.1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="name"
+
+pakhinai
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="price"
+
+10000
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+
+Content-Disposition: form-data; name="stock"
+
+9
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="demo.png"
+Content-Type: image/png
+
+< ./demo1.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+PUT http://localhost:8000/adidass/3 HTTP/1.1
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="name"
+
+Mac mini update
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="price"
+
+99999
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+
+Content-Disposition: form-data; name="stock"
+
+1
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="image"; filename="demo.png"
+Content-Type: image/png
+
+< ./demo01.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
