@@ -2,6 +2,8 @@ const db = require("../models");
 
 exports.findNikeAll = async () => await db.Nike.findAll();
 
+exports.findNikeById = async (id) => await db.Nike.findByPk(id)
+
 exports.addProduct = async (product, file) => {
   return await db.Nike.create({
     name: product.name,

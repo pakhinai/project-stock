@@ -13,9 +13,12 @@ axios.interceptors.request.use(
       return config;
     }
 
-    const token = localStorageService.getAdminToken();
-    if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`;
+    const tokenAdmin = localStorageService.getAdminToken();
+    const tokenUser = localStorageService.getUserToken()
+    if (tokenAdmin) {
+      config.headers["Authorization"] = `Bearer ${tokenAdmin}`;
+    } else {
+      config.headers["Authorization"] = `Bearer ${tokenUser}`
     }
     return config;
   },

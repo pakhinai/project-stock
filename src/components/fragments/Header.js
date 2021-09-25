@@ -127,7 +127,7 @@ function Header(props) {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Persistent drawer
+            Company
           </Typography>
           <Button
             variant="text"

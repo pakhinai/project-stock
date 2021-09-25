@@ -8,6 +8,11 @@ const getReebox = async (req, res) => {
   res.status(200).send(result);
 };
 
+const getReeboxById = async (req, res) => {
+  const result = await reeboxService.findReeboxById(req.params.id)
+  res.status(200).send(result)
+}
+
 const createReebox = async (req, res) => {
   upload(req, res, async (error) => {
     if (error) {
@@ -51,4 +56,5 @@ module.exports = {
   createReebox,
   updateReebox,
   deleteReebox,
+  getReeboxById
 };

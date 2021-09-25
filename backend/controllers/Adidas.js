@@ -8,6 +8,11 @@ const getAdidas = async (req, res) => {
   res.status(200).send(data);
 };
 
+const getAdidasById = async (req, res) => {
+  const data = await adidasService.findAdidasById(req.params.id)
+  res.status(200).send(data)
+}
+
 const createAdidas = (req, res) => {
   upload(req, res, async (error) => {
     if (error) {
@@ -54,4 +59,5 @@ module.exports = {
   createAdidas,
   updateAdidas,
   deleteAdidas,
+  getAdidasById
 };

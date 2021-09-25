@@ -37,7 +37,7 @@ const useStyles = makeStyles({
 export default function Admin(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const loginReducer = useSelector(({ loginReducer }) => loginReducer);
+  const adminReducer = useSelector(({ adminReducer }) => adminReducer);
   const validationSchema = yup.object({
     username: yup.string().required("Username is required"),
     password: yup.string().required("Password is required"),
@@ -51,9 +51,9 @@ export default function Admin(props) {
     onSubmit: (values) => {
       dispatch(adminAction.login({ ...values, ...props }));
       // ถ้าใช้ มันจะทำการโหลดหน้าเว็บหลังจาก login เป็นแบบ hardcode
-      // setTimeout(() => {
-      //   window.location.reload()
-      // }, 1000);
+      setTimeout(() => {
+        window.location.reload()
+      }, 1000);
     },
     validationSchema: validationSchema,
   });
@@ -166,7 +166,7 @@ export default function Admin(props) {
           </CardContent>
         </Card>
       </Box>
-      {loginReducer.isError && <Dialog />}
+      {adminReducer.isError && <Dialog />}
     </div>
   );
 }

@@ -2,6 +2,8 @@ const db = require("../models");
 
 exports.findUnderArmourAll = async () => await db.Underamour.findAll();
 
+exports.findUnderArmourById = async (id) => await db.Underamour.findByPk(id)
+
 exports.createProduct = async (product, file) => {
   return await db.Underamour.create({
     name: product.name,

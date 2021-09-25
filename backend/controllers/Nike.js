@@ -8,6 +8,11 @@ const getNike = async (req, res) => {
   res.status(200).send(data);
 };
 
+const getNikeById = async (req, res) => {
+  const data = await nikeService.findNikeById(req.params.id)
+  res.status(200).send(data)
+}
+
 const createNike = async (req, res) => {
   upload(req, res, async (error) => {
     if (error) {
@@ -54,4 +59,5 @@ module.exports = {
   createNike,
   updateNike,
   deleteNike,
+  getNikeById
 };

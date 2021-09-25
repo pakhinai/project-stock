@@ -2,6 +2,8 @@ const db = require("../models");
 
 exports.findPumaAll = async () => await db.Puma.findAll();
 
+exports.findPumaById = async (id) => await db.Puma.findByPk(id)
+
 exports.createProduct = async (product, file) => {
   return await db.Puma.create({
     name: product.name,

@@ -2,6 +2,8 @@ const db = require("../models");
 
 exports.findReeboxAll = async () => await db.Reebox.findAll();
 
+exports.findReeboxById = async (id) => await db.Reebox.findByPk(id)
+
 exports.createProduct = async (product, file) => {
   return await db.Reebox.create({
     name: product.name,

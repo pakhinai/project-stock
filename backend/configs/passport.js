@@ -10,10 +10,12 @@ const option = {
 const jwtStrategy = new Strategy(option, async (payload, done) => {
   const targetAdmin = await db.Admin.findOne({ where: { id: payload.id } });
 
+  const targetUser = await db.User.findOne({where: {id: payload.id}})
+
   if (targetAdmin) {
     done(null, targetAdmin);
   } else {
-    done(null, false);
+    done(null, targetUser);
   }
 });
 

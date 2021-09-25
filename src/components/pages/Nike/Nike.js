@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import MaterialTable, { MTableToolbar } from "material-table";
 import { makeStyles } from "@material-ui/core/styles";
-import { Typography, Grid, Paper } from "@material-ui/core";
+import { Typography, Grid, Paper, Button } from "@material-ui/core";
 import { forwardRef } from "react";
 import Moment from "react-moment";
 import NumberFormat from "react-number-format";
 import { useDispatch, useSelector } from "react-redux";
 import * as nikeAction from "../../../actions/nike.action";
 import { URL_IMG } from "../../../Constants";
+import { Link } from "react-router-dom";
+import localStorageService from "../../../configs/localStorageService";
 
 import AddBox from "@material-ui/icons/AddBox";
 import ArrowDownward from "@material-ui/icons/ArrowDownward";
@@ -24,6 +26,10 @@ import Remove from "@material-ui/icons/Remove";
 import SaveAlt from "@material-ui/icons/SaveAlt";
 import Search from "@material-ui/icons/Search";
 import ViewColumn from "@material-ui/icons/ViewColumn";
+
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -49,16 +55,71 @@ const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
 
-export default function Nike() {
+const useStyles = makeStyles({
+  root: {
+    display: "flex",
+    flexWrap: "wrap",
+  },
+  card: {
+    maxWidth: 300,
+    textAlign: "center",
+    margin: 10,
+    borderRadius: 10,
+    boxShadow: "4px 8px 8px rgba(224, 224, 224, 1)",
+  },
+});
+
+export default function Nike(props) {
   const dispatch = useDispatch();
   const nikeReducer = useSelector(({ nikeReducer }) => nikeReducer);
-  const adminReducer = useSelector(({adminReducer}) => adminReducer)
-  const [open, setOpen] = useState(null)
+  const [open, setOpen] = useState(false);
+  const [selectId, setSelectId] = useState();
+
+  const handleClickOpen = (item) => {
+    setSelectId(item.id);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
     dispatch(nikeAction.getNike());
-    // console.log("show show show")
   }, []);
+
+  const showDialogDelete = () => {
+    return selectId ? (
+      <div>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            Are you sure remove item {selectId}
+          </DialogTitle>
+
+          <DialogActions>
+            <Button onClick={handleClose}>Disagree</Button>
+            <Button
+              onClick={() => {
+                dispatch(nikeAction.RemoveNike(selectId));
+                handleClose();
+                setTimeout(() => {
+                  window.location.reload();
+                }, 500);
+              }}
+              autoFocus
+            >
+              Agree
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    ) : null;
+  };
 
   const columns = [
     {
@@ -107,7 +168,7 @@ export default function Nike() {
             thousandSeparator={true}
             decimalScale={0}
             fixedDecimalScale={true}
-            suffix={"pieces"}
+            suffix={" pieces"}
           />
         </Typography>
       ),
@@ -123,13 +184,55 @@ export default function Nike() {
     },
   ];
 
+  const actions = [
+    {
+      icon: () => <Edit />,
+      iconProps: { color: "primary" },
+      tooltip: "Edit",
+      onClick: (event, rowData) => {
+        props.history.push(`/nike-edit/${rowData.id}`);
+      },
+    },
+    {
+      icon: () => <DeleteOutline />,
+      iconProps: { color: "action" },
+      tooltip: "Delete",
+      onClick: (event, rowData) => {
+        handleClickOpen(rowData);
+      },
+    },
+  ];
+
   return (
     <div style={{ width: "100%", height: "100vh", marginTop: 63 }}>
-       <MaterialTable
+      <MaterialTable
         icons={tableIcons}
         columns={columns}
+        title="Nike"
         data={nikeReducer.NikeResult ? nikeReducer.NikeResult : []}
+        components={{
+          Toolbar: (props) => (
+            <div>
+              <MTableToolbar {...props} />
+              <div style={{ maxWidth: 200, marginLeft: 10, marginBottom: 5 }}>
+                {localStorageService.getRole() === "admin" && (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    component={Link}
+                    to="/nike-create"
+                  >
+                    Create
+                  </Button>
+                )}
+              </div>
+            </div>
+          ),
+        }}
+        actions={localStorageService.getRole() === "admin" && actions}
       />
+      {showDialogDelete()}
     </div>
   );
 }

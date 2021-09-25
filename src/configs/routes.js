@@ -44,7 +44,7 @@ const components = {
         component: NikeCreate
     },
     nikeEdit: {
-        url: '/nike-edit',
+        url: '/nike-edit/:id',
         component: NikeEdit
     },
     adidas: {
@@ -56,7 +56,7 @@ const components = {
         component: AdidasCreate
     },
     adidasEdit: {
-        url: '/adidas-edit',
+        url: '/adidas-edit/:id',
         component: AdidasEdit
     },
     puma: {
@@ -68,7 +68,7 @@ const components = {
         component: PumaCreate
     },
     pumaEdit: {
-        url: '/puma-edit',
+        url: '/puma-edit/:id',
         component: PumaEdit
     },
     reebox: {
@@ -80,7 +80,7 @@ const components = {
         component: ReeboxCreate
     },
     reeboxEdit: {
-        url: '/reebox-edit',
+        url: '/reebox-edit/:id',
         component: ReeboxEdit
     },
     underArmour: {
@@ -92,7 +92,7 @@ const components = {
         component: UnderArmourCreate
     },
     underArmourEdit: {
-        url: '/underarmour-edit',
+        url: '/underarmour-edit/:id',
         component: UnderArmourEdit
     }
 }

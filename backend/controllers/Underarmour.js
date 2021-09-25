@@ -8,6 +8,11 @@ const getUnderarmour = async (req, res) => {
   res.status(200).send(result);
 };
 
+const getUnderarmourById = async (req, res) => {
+  const result = await underArmourService.findUnderArmourById(req.params.id)
+  res.status(200).send(result)
+}
+
 const createUnderarmour = (req, res) => {
   upload(req, res, async (error) => {
     if (error) {
@@ -54,4 +59,5 @@ module.exports = {
   createUnderarmour,
   updateUnderarmour,
   deleteUnderarmour,
+  getUnderarmourById
 };

@@ -6,6 +6,7 @@ const passport = require('passport')
 const authentication = passport.authenticate('jwt', {session: false})
 
 router.get("/", authentication, underarmourController.getUnderarmour)
+router.get("/:id", authentication, underarmourController.getUnderarmourById)
 router.post("/", authentication, underarmourController.createUnderarmour)
 router.put("/:id", authentication, underarmourController.updateUnderarmour)
 router.delete("/:id", authentication, underarmourController.deleteUnderarmour)

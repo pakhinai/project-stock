@@ -3,6 +3,8 @@ const db = require("../models");
 exports.findAdidasAll = async (user) =>
   await db.Adidas.findAll();
 
+exports.findAdidasById = async (id) => await db.Adidas.findByPk(id)
+
 exports.addProduct = async (product, file) => {
   return await db.Adidas.create({
     name: product.name,

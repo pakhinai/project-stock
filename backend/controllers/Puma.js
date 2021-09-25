@@ -8,6 +8,11 @@ const getPuma = async (req, res) => {
   res.status(200).send(result);
 };
 
+const getPumaById = async (req, res) => {
+  const result = await pumaService.findPumaById(req.params.id)
+  res.status(200).send(result)
+}
+
 const createPuma = async (req, res) => {
   upload(req, res, async (error) => {
     if (error) {
@@ -52,4 +57,5 @@ module.exports = {
   createPuma,
   updatePuma,
   deletePuma,
+  getPumaById
 };

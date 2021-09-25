@@ -17,6 +17,7 @@ import * as adminAction from "./actions/admin.action";
 
 export default function App() {
   const loginReducer = useSelector(({ loginReducer }) => loginReducer);
+  const adminReducer = useSelector(({adminReducer}) => adminReducer)
   const dispatch = useDispatch();
   // const role = localStorageService.getRole();
   const [role, setRole] = useState(localStorageService.getRole())
@@ -28,13 +29,13 @@ export default function App() {
     } else if (role === "admin") {
       dispatch(adminAction.reLogin());
     }
-    // console.log(role)
+    console.log(role)
   }, []);
 
   return (
     <div >
       <Router>
-        {loginReducer.result && <Header />}
+        {(loginReducer.result || adminReducer.result) && <Header />}
         <Switch>
           {allowedRoutes.map((route) => (
             <Route

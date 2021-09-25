@@ -48,6 +48,9 @@ export default function User(props) {
     },
     onSubmit: (values) => {
       dispatch(loginAction.login({...values, ...props}))
+      setTimeout(() => {
+        window.location.reload()
+      }, 1000);
     },
     validationSchema: validationSchema
   })
